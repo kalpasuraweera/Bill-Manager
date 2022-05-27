@@ -38,10 +38,11 @@
         <div class="col-md-8 card main-box">
           <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-10">
+            <div class="col-md-9">
               <h3>Expense List of <span id="bill-name"> Water Bill</span></h3>
             </div>
-            <div class="col-md-1"><div class="plus-btn">+</div></div>
+            <div class="col-md-1"><button type="button" data-toggle="modal" data-target="#addexpence" class="plus-btn">+</button></div>
+            <div class="col-md-1"></div>
           </div>
           <div class="row">
             <div class="col-md-2"></div>
@@ -51,8 +52,24 @@
                 <div class="row expence-body">
                   <div class="col-md-1"></div>
                   <div class="col-md-6 cost-detail">
-                    <div class="row num-units">50 Units</div>
-                    <div class="row description"><p>I paid the bill early and settled the last balance.</p></div>
+                    <div class="col-md-12 num-units">50 Units</div>
+                    <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
+                  </div>
+                  <div class="col-md-4 cost-price">$500</div>
+                  <div class="col-md-1"></div>
+                </div>
+              </div>
+
+
+              <!-- this is for design -->
+
+              <div class="card expence-item">
+                <div class="col-md-12 expence-title">June 2022</div>
+                <div class="row expence-body">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-6 cost-detail">
+                    <div class="col-md-12 num-units">50 Units</div>
+                    <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
                   </div>
                   <div class="col-md-4 cost-price">$500</div>
                   <div class="col-md-1"></div>
@@ -63,8 +80,8 @@
                 <div class="row expence-body">
                   <div class="col-md-1"></div>
                   <div class="col-md-6 cost-detail">
-                    <div class="row num-units">50 Units</div>
-                    <div class="row description"><p>I paid the bill early and settled the last balance.</p></div>
+                    <div class="col-md-12 num-units">50 Units</div>
+                    <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
                   </div>
                   <div class="col-md-4 cost-price">$500</div>
                   <div class="col-md-1"></div>
@@ -75,13 +92,27 @@
                 <div class="row expence-body">
                   <div class="col-md-1"></div>
                   <div class="col-md-6 cost-detail">
-                    <div class="row num-units">50 Units</div>
-                    <div class="row description"><p>I paid the bill early and settled the last balance.</p></div>
+                    <div class="col-md-12 num-units">50 Units</div>
+                    <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
                   </div>
                   <div class="col-md-4 cost-price">$500</div>
                   <div class="col-md-1"></div>
                 </div>
               </div>
+              <div class="card expence-item">
+                <div class="col-md-12 expence-title">June 2022</div>
+                <div class="row expence-body">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-6 cost-detail">
+                    <div class="col-md-12 num-units">50 Units</div>
+                    <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
+                  </div>
+                  <div class="col-md-4 cost-price">$500</div>
+                  <div class="col-md-1"></div>
+                </div>
+              </div>
+             
+              
             </div>
             <div class="col-md-2"></div>
           </div>
@@ -90,10 +121,10 @@
         <div class="col-md-3 card main-box">
           <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <h3>Bill List</h3>
             </div>
-            <div class="col-md-1"><div class="plus-btn">+</div></div>
+            <div class="col-md-2"><button type="button" data-toggle="modal" data-target="#addbill" class="plus-btn">+</button></div>
             <div class="col-md-1"></div>
           </div>
           <div class="row">
@@ -117,6 +148,76 @@
       </div>
       
     </div>
+
+    <!-- popup models -->
+
+
+    <!-- add bill Modal -->
+    <div class="modal fade" id="addbill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add a bill</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/addbill" method="post">
+              <div class="form-group">
+                <label>Bill Name</label>
+                <input type="text" class="form-control"  placeholder="Enter Name">
+                <small class="form-text text-muted">Add bills to your bill list and manage them easily.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- add expence Modal -->
+     <div class="modal fade" id="addexpence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Monthly Expences</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/addexpence" method="post">
+              <div class="form-group">
+                <label>Month</label>
+                <input type="date" class="form-control"  >
+                <small class="form-text text-muted">Select an any date from the month you want.</small>
+              </div>
+              <div class="form-group">
+                <label>Cost</label>
+                <input type="text" class="form-control"  placeholder="Cost in Dollers">
+              </div>
+              <div class="form-group">
+                <label>Number of Units</label>
+                <input type="text" class="form-control"  placeholder="Number of units">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

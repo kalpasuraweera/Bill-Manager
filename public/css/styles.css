@@ -9,6 +9,10 @@ background: #eee;
 
 body{
     padding-top: 0;
+    
+}
+#main{
+    font-family: Segoe UI;
 }
 .navbar{
     background-color: #25A18E ;
@@ -48,6 +52,13 @@ a:hover{
     color:#fff;
     font-weight: bold;
     cursor: pointer;
+    border: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.plus-btn:hover, .plus-btn:focus{
+    border: 0;
+    outline: none;
 
 }
 
