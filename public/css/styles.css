@@ -1,0 +1,58 @@
+/* home page styles */
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+
+body{
+    padding-top: 0;
+}
+.navbar{
+    background-color: #25A18E ;
+    
+}
+.navbar-brand{
+    color: #9FFFCB;
+}
+
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+.logout{
+    color:#fff
+}
+.logout:hover{
+    color:#9FFFCB;
+}
+
+.main-box{
+    margin-top: 2rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.plus-btn{
+    background-color: #00A5CF;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 2rem;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1;
+    color:#fff;
+    font-weight: bold;
+
+}
+.bill-item{
+    cursor: pointer;
+    background-color: #7AE582;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+}
