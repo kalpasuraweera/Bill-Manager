@@ -150,7 +150,7 @@ app.get( '/google/callback',
 app.get('/dash',checkAuth,(req,res)=>{
     console.log(req.user);
 
-    res.render('dashboard');
+    res.render('dashboard',{user:req.user});
 });
 
 app.get('/logout', function(req, res, next) {
