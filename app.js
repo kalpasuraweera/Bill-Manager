@@ -7,6 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 const saltRounds = 10;
 
 
@@ -18,11 +19,24 @@ const userSchema= new mongoose.Schema({
     name:String,
     password: String,
     email: String,
-    bils:[{}]
+    bills:[{
+        id: String,
+        billName:String,
+        billItems: [{
+            date: String,
+            amount: Number,
+            units:Number,
+            description: String
+        }]
+
+    }]
 });
+
+
+
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
+app.use(express.static(__dirname+"/public"));
 app.use(session({
     secret: 'kalpa and piyumi',
     resave: false,
@@ -148,9 +162,26 @@ app.get( '/google/callback',
         failureRedirect: '/login'
 }));
 app.get('/dash',checkAuth,(req,res)=>{
-    console.log(req.user);
-
     res.render('dashboard',{user:req.user});
+});
+app.get('/show/:billName',checkAuth, (req,res)=>{
+    res.render('showdashboard',{user:req.user});
+});
+
+app.post('/addbill',checkAuth, (req,res)=>{
+    const newBill= {
+        billName:req.body.billName,
+        billItems:[]
+    }
+    User.updateOne({email: req.user.email},{$push : {bills:newBill}},err=>{
+        if(!err){
+            res.redirect('/dash');
+        }
+    });
+    
+    
+
+
 });
 
 app.get('/logout', function(req, res, next) {
