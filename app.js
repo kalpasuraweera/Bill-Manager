@@ -6,7 +6,6 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
-const findOrCreate = require('mongoose-findorcreate');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -21,7 +20,6 @@ const userSchema= new mongoose.Schema({
     email: String,
     bils:[{}]
 });
-userSchema.plugin(findOrCreate);
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -71,9 +69,24 @@ passport.use(new GoogleStrategy({
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
+    
+    User.findOne({email:profile.email }, (err, user)=>{
+        if(err){ return done(err)}
+        if(!user){
+            const newUser= new User({
+                name: profile.displayName,
+                email: profile.email
+            });
+            newUser.save(err=>{
+                if(err){return done(err)}
+            });
+            User.findOne({email:profile.email }, (er,user)=>{
+                if(er){ return done(er)}
+                return done(null, user);
+            });
+        } return done(null, user);
     });
+    
   }
 ));
 
@@ -132,9 +145,10 @@ app.get('/google',
 app.get( '/google/callback',
     passport.authenticate( 'google', {
         successRedirect: '/dash',
-        failureRedirect: '/google/failure'
+        failureRedirect: '/login'
 }));
 app.get('/dash',checkAuth,(req,res)=>{
+    console.log(req.user);
 
     res.render('dashboard');
 });
