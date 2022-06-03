@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
   </head>
 
   <body>
@@ -36,9 +36,46 @@
     <div id="main" class="container">
       <div class="row">
         <div class="col-md-8 card main-box">
-          
-            <h3>Select a Bill</h3>
-      
+          <% if(pageID==='welcome'){ %> 
+          <h3>Select a Bill</h3>
+          <% }else{ %> 
+
+          <div class="selected-bill">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-9">
+                <h3>Expense List of <span id="bill-name"> <%= bill.billName %> </span></h3>
+              </div>
+              <div class="col-md-1"><button type="button" data-toggle="modal" data-target="#addexpence" class="plus-btn">+</button></div>
+              <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                <%  bill.billItems.forEach(expence=>{ %>
+
+                  <div class="card expence-item">
+                    <div class="col-md-12 expence-title"><%= expence.date %> </div>
+                    <div class="row expence-body">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-6 cost-detail">
+                        <div class="col-md-12 num-units">50 Units</div>
+                        <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
+                      </div>
+                      <div class="col-md-4 cost-price">$<%= expence.amount %> </div>
+                      <div class="col-md-1"></div>
+                    </div>
+                  </div>
+
+               <%   }); %>
+                
+
+
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+      <% } %> 
           
         </div>
         <div class="col-md-1"></div>
@@ -56,7 +93,7 @@
            
             <%   user.bills.forEach(billItem=>{ %>
               <div class="col-md-12">
-                <a href="/show/<%= billItem.billName %>">
+                <a href="/show/<%= billItem._id %>">
                   <div class="card bill-item">
                     <%= billItem.billName %> 
                   </div>

@@ -125,7 +125,7 @@ app.get('/login',(req,res)=>{
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/dash');
+    res.redirect('/dashboard/welcome');
   });
 
 app.get('/register',(req,res)=>{
@@ -158,14 +158,19 @@ app.get('/google',
 
 app.get( '/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/dash',
+        successRedirect: '/dashboard/welcome',
         failureRedirect: '/login'
 }));
-app.get('/dash',checkAuth,(req,res)=>{
-    res.render('dashboard',{user:req.user});
+app.get('/dashboard/welcome',checkAuth,(req,res)=>{
+    res.render('dashboard',{user:req.user,pageID:'welcome'});
 });
-app.get('/show/:billName',checkAuth, (req,res)=>{
-    res.render('showdashboard',{user:req.user});
+app.get('/show/:billID',checkAuth, (req,res)=>{
+    // console.log(req.user);
+    // const billItems= req.user.bills;
+    const pageID=req.params.billID;
+    const bill= req.user.bills.find(x=> x._id==pageID);
+    console.log(bill);
+    res.render('dashboard',{user:req.user,pageID:pageID,bill:bill});
 });
 
 app.post('/addbill',checkAuth, (req,res)=>{
@@ -175,7 +180,7 @@ app.post('/addbill',checkAuth, (req,res)=>{
     }
     User.updateOne({email: req.user.email},{$push : {bills:newBill}},err=>{
         if(!err){
-            res.redirect('/dash');
+            res.redirect('/dashboard/welcome');
         }
     });
     
