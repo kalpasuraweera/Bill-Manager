@@ -20,7 +20,6 @@ const userSchema= new mongoose.Schema({
     password: String,
     email: String,
     bills:[{
-        id: String,
         billName:String,
         billItems: [{
             date: String,
@@ -164,12 +163,12 @@ app.get( '/google/callback',
 app.get('/dashboard/welcome',checkAuth,(req,res)=>{
     res.render('dashboard',{user:req.user,pageID:'welcome'});
 });
-app.get('/show/:billID',checkAuth, (req,res)=>{
+app.get('/dashboard/:billID',checkAuth, (req,res)=>{
     // console.log(req.user);
     // const billItems= req.user.bills;
     const pageID=req.params.billID;
     const bill= req.user.bills.find(x=> x._id==pageID);
-    console.log(bill);
+
     res.render('dashboard',{user:req.user,pageID:pageID,bill:bill});
 });
 
@@ -189,7 +188,25 @@ app.post('/addbill',checkAuth, (req,res)=>{
 
 });
 
-app.get('/logout', function(req, res, next) {
+app.post('/addexpence',checkAuth, (req,res)=>{
+    const newExpence= {
+        date: req.body.date,
+        amount: Number(req.body.amount),
+        units: Number(req.body.units),
+        description: req.body.desc
+    }
+    const billID= req.body.submit;
+    // User.updateOne({email:req.user.email, "bills._id":})
+    User.updateOne({email:req.user.email, "bills._id": new mongoose.Types.ObjectId(billID) }, {$push:{"bills.$.billItems":newExpence}}, err=>{
+        if(!err){
+            res.redirect('/dashboard/'+billID);
+        }
+    });
+    
+
+});
+
+app.get('/logout',checkAuth ,function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }
       res.redirect('/');

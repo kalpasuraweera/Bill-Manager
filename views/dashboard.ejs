@@ -59,8 +59,8 @@
                     <div class="row expence-body">
                       <div class="col-md-1"></div>
                       <div class="col-md-6 cost-detail">
-                        <div class="col-md-12 num-units">50 Units</div>
-                        <div class="col-md-12 description"><p>I paid the bill early and settled the last balance.</p></div>
+                        <div class="col-md-12 num-units"><%= expence.units %> Units</div>
+                        <div class="col-md-12 description"><p><%= expence.description %></p></div>
                       </div>
                       <div class="col-md-4 cost-price">$<%= expence.amount %> </div>
                       <div class="col-md-1"></div>
@@ -93,7 +93,7 @@
            
             <%   user.bills.forEach(billItem=>{ %>
               <div class="col-md-12">
-                <a href="/show/<%= billItem._id %>">
+                <a href="/dashboard/<%= billItem._id %>">
                   <div class="card bill-item">
                     <%= billItem.billName %> 
                   </div>
@@ -153,25 +153,25 @@
             <form action="/addexpence" method="post">
               <div class="form-group">
                 <label>Month</label>
-                <input type="date" class="form-control"  >
+                <input type="date" name="date" class="form-control"  >
                 <small class="form-text text-muted">Select an any date from the month you want.</small>
               </div>
               <div class="form-group">
                 <label>Cost</label>
-                <input type="text" class="form-control"  placeholder="Cost in Dollers">
+                <input type="text" name="amount" class="form-control"  placeholder="Cost in Dollers">
               </div>
               <div class="form-group">
                 <label>Number of Units</label>
-                <input type="text" class="form-control"  placeholder="Number of units">
+                <input type="text" name="units" class="form-control"  placeholder="Number of units">
               </div>
               <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" placeholder="Type a simple description" rows="3"></textarea>
+                <textarea class="form-control" name="desc" placeholder="Type a simple description" rows="3"></textarea>
               </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" name="submit" value=<%= pageID %>  class="btn btn-primary">Add</button>
           </form>
           </div>
         </div>
