@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express= require('express');
 const bodyParser= require('body-parser');
 const ejs = require('ejs');
@@ -37,7 +38,7 @@ app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
 app.use(session({
-    secret: 'kalpa and piyumi',
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
   }));
